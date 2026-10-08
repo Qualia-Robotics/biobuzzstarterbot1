@@ -16,6 +16,7 @@ public class MotorTester extends LinearOpMode {
     public void runOpMode() {
         Motor = hardwareMap.get(DcMotor.class, "Motor");
 
+        Motor.setDirection(DcMotor.Direction.REVERSE);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -24,8 +25,12 @@ public class MotorTester extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            double motpow = gamepad1.left_trigger;
-            Motor.setPower(motpow);
+            double motorPower = gamepad1.left_trigger;
+
+            Motor.setPower(motorPower);
+            telemetry.addData("Trigger", motorPower);
+            telemetry.addData("Motor Power", Motor.getPower());
+            telemetry.update();
         }
         telemetry.update();
     }
